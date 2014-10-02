@@ -60,6 +60,11 @@ infoBubble2 = new InfoBubble({
      * define a CSS class name for active tabs only
      **/
     activeTabClassName: 'activeTabClass',
+    /**
+     * define a custom src and/or className for close icon
+     **/
+    closeSrc: '//domain.com/img/myClose.png',
+    closeClassName: 'infobubble-close',
     arrowStyle: 0
   });
 ```

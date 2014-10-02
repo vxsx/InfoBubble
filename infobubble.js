@@ -61,7 +61,7 @@ function InfoBubble(opt_options) {
   if (options['padding'] == undefined) {
     options['padding'] = this.PADDING_;
   }
-  
+
   if(options['tabPadding'] == undefined) {
     options['tabPadding'] == this.TABPADDING_;
   }
@@ -94,8 +94,19 @@ function InfoBubble(opt_options) {
     options['arrowStyle'] = this.ARROW_STYLE_;
   }
 
-  this.buildDom_();
+  if (options['closeSrc'] == undefined) {
+    options['closeSrc'] = this.CLOSE_SRC_;
+  }
 
+  if (options['closeClassName'] == undefined) {
+    options['closeClassName'] = this.CLOSE_CLASS_;
+  }
+
+  this.setValues({
+    closeClassName: options.closeClassName,
+    closeSrc: options.closeSrc
+  });
+  this.buildDom_();
   this.setValues(options);
 }
 window['InfoBubble'] = InfoBubble;
@@ -186,6 +197,20 @@ InfoBubble.prototype.BORDER_RADIUS_ = 10;
  */
 InfoBubble.prototype.BACKGROUND_COLOR_ = '#fff';
 
+/**
+ * Default close image source
+ * @const
+ * @private
+ */
+InfoBubble.prototype.CLOSE_SRC_ = '//maps.gstatic.com/intl/en_us/mapfiles/iw_close.gif';
+
+/**
+ * Default close image class name
+ * @const
+ * @private
+ */
+InfoBubble.prototype.CLOSE_CLASS_ = 'infobubble-close';
+
 
 /**
  * Extends a objects prototype by anothers.
@@ -225,7 +250,9 @@ InfoBubble.prototype.buildDom_ = function() {
   close.style['border'] = 0;
   close.style['zIndex'] = this.baseZIndex_ + 1;
   close.style['cursor'] = 'pointer';
-  close.src = 'http://maps.gstatic.com/intl/en_us/mapfiles/iw_close.gif';
+
+  this.close_.src = this.get('closeSrc');
+  this.close_.className = this.get('closeClassName');
 
   var that = this;
   google.maps.event.addDomListener(close, 'click', function() {
